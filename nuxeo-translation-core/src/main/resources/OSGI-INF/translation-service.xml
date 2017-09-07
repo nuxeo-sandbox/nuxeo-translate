@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.translation.service" version="1.0">
+
+  <documentation>
+    A service that performs text translation
+  </documentation>
+
+  <service>
+    <provide interface="org.nuxeo.translation.service.api.Translation" />
+  </service>
+
+  <implementation class="org.nuxeo.translation.service.impl.TranslationImpl" />
+
+  <extension-point name="configuration">
+    <documentation>Default behavior of the service</documentation>
+    <object class="org.nuxeo.translation.service.impl.TranslationDescriptor" />
+  </extension-point>
+
+  <extension-point name="provider">
+    <documentation>Used to define a new Translation service provider</documentation>
+    <object class="org.nuxeo.translation.service.impl.TranslationProviderDescriptor" />
+  </extension-point>
+
+  <extension target="org.nuxeo.translation.service" point="configuration">
+    <configuration>
+      <defaultProviderName>${org.nuxeo.translation.default.provider:=}</defaultProviderName>
+    </configuration>
+  </extension>
+
+</component>

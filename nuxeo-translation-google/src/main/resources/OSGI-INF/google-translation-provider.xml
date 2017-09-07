@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.translation.google.provider" version="1.0">
+
+  <extension point="provider" target="org.nuxeo.translation.service">
+    <provider class="org.nuxeo.translation.google.GoogleTranslationProvider" name="google">
+      <parameters>
+        <parameter name="appName">Nuxeo</parameter>
+        <parameter name="credentialFilePath">${org.nuxeo.translation.google.credentials:=}</parameter>
+      </parameters>
+    </provider>
+  </extension>
+
+</component>

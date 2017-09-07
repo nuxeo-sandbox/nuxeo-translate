@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: nuxeo-translation-core;singleton=true
+Bundle-Version: 1.0.0
+Bundle-Name: nuxeo-translation-core
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Bundle-ManifestVersion: 2
+Bundle-Vendor: nuxeo.translation
+Nuxeo-Component: OSGI-INF/translation-service.xml,OSGI-INF/operat
+ ions-contrib.xml
+
