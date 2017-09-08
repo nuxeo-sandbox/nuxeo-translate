@@ -15,7 +15,7 @@
  *
  * Contributors:
  *     Thibaud Arguillere (via natural-language)
- *     Jackie Aldama
+ *	   Jackie Aldama
  */
 package org.nuxeo.translation.google.test;
 
@@ -106,9 +106,9 @@ public class TestGoogleTranslationProvider {
 
 		assertNotNull(googleTranslationProvider);
 
-		String text = "Test Translation";
+		String text = "Hello";
 
-		TranslationResponse response = googleTranslationProvider.translateText(text, "en", "ru");
+		TranslationResponse response = googleTranslationProvider.translateText(text, "en", "es");
 
 		assertNotNull(response);
 		// String language = response.getLanguage();

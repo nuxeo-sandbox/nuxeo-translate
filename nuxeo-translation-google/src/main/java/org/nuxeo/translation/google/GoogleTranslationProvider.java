@@ -15,7 +15,7 @@
  *
  * Contributors:
  *     Thibaud Arguillere (via natural-language)
- *     Jackie Aldama
+ *	   Jackie Aldama
  */
 
 package org.nuxeo.translation.google;
@@ -24,12 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
-import com.google.api.gax.core.CredentialsProvider;
-import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.Translate.TranslateOption;
@@ -72,28 +68,10 @@ public class GoogleTranslationProvider implements TranslationProvider {
 			synchronized (this) {
 				if (translationServiceClient == null) {
 
-					//translationServiceClient = TranslateOptions.getDefaultInstance().getService();
-
-					/**
-					 * String text = 'This is an example';
-					 * Translation translation =
-				     *   translate.translate(
-				     *       text,
-				     *       TranslateOption.sourceLanguage("en"),
-				     *       TranslateOption.targetLanguage("ru"));
-					**/
-
-					final TranslateOptions translateOptions;
 					try (InputStream is = new FileInputStream(new File(getCredentialFilePath()))) {
-						final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
-							//	.createScoped(TranslateOptions.getScopes());
-
-						//final CredentialsProvider credentialsProvider = FixedCredentialsProvider.create(myCredentials);
 						
-						translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
-
-						translationServiceClient = translateOptions.getService();
-
+						final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
+						translationServiceClient = TranslateOptions.newBuilder().setCredentials(myCredentials).build().getService();
 					} catch (IOException ioe) {
 						throw new NuxeoException(ioe);
 					}
@@ -110,20 +88,14 @@ public class GoogleTranslationProvider implements TranslationProvider {
 
 		Translate translationService = getTranslationServiceClient();
 
-		Translation response;
+		//Translation response = translationService.translate(text);
 		//response = translationService.translate(text, TranslateOption.sourceLanguage(sourceLanguage), TranslateOption.targetLanguage(targetLanguage));
-		response = translationService.translate(text);
-		
+		Translation response = translationService.translate(text, Translate.TranslateOption.sourceLanguage("es"));
+		System.out.println(response.getTranslatedText());
 		GoogleTranslationResponse gtr = new GoogleTranslationResponse(response);
 
 		return gtr;
 	}
-
-	// @Override
-	// public List<TranslationFeature> getSupportedFeatures() {
-	// 	return Arrays.asList(TranslationFeature.DOCUMENT_SENTIMENT, TranslationFeature.ENTITIES,
-	// 			TranslationFeature.SYNTAX);
-	// }
 
 	@Override
 	public Translate getNativeClient() {
@@ -157,8 +129,6 @@ public class GoogleTranslationProvider implements TranslationProvider {
 	}
 
 	/**
-	 * Use by unit test
-	 *
 	 * @param value
 	 * @since 9.2
 	 */
@@ -166,12 +136,4 @@ public class GoogleTranslationProvider implements TranslationProvider {
 		params.put(CREDENTIAL_PATH_PARAM, value);
 	}
 
-	// @Override
-	// public LanguageServiceClient getNativeClient() {
-	// 	try {
-	// 		return getLanguageServiceClient();
-	// 	} catch (IOException e) {
-	// 		throw new NuxeoException(e);
-	// 	}
-	// }
 }

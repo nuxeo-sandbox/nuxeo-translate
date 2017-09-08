@@ -19,10 +19,6 @@
  */
 package org.nuxeo.translation.service.api;
 
-import java.util.List;
-
-import org.nuxeo.translation.service.impl.TranslationText;
-
 /**
  * The response from the service.
  *
@@ -36,8 +32,8 @@ public interface TranslationResponse {
 	// <--------------------- Translation -------------------->
 	/**
 	 *
-	 * @return TranslationResource containing translation of text
+	 * @return Text Translation String
 	 */
-	String translateText();
+	String getTextTranslation();
 
 }

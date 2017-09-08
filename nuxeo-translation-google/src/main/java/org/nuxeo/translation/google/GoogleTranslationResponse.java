@@ -38,9 +38,10 @@ public class GoogleTranslationResponse implements TranslationResponse {
 
 	public GoogleTranslationResponse(Translation response) {
 		nativeResponse = response;
+		translationResponse = response.getTranslatedText();
 	}
 
-	public String translateText() {
+	public String getTextTranslation() {
 		return translationResponse;
 	}
 
