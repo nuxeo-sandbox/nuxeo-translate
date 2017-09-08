@@ -5,7 +5,7 @@
 ## About
 This plugin provides a service allowing text to be translated to/from English.
 
-To cite Google Natural Translate API documentation:
+To cite Google Translate API documentation:
 
 ## Usage
  
@@ -22,7 +22,7 @@ To cite Google Natural Translate API documentation:
 - Set the `org.nuxeo.translate.google.credential` (in nuxeo.conf) parameter to the full path to this credentials file.
 
 #### Algorithm Used when Connecting to the Service
- 1. If the `org.nuxeo.natural.language.google.credential` configuraiton parameter is set, use it
+ 1. If the `org.nuxeo.translate.google.credential` configuraiton parameter is set, use it
  2. Else, read the `GOOGLE_APPLICATION_CREDENTIALS` Environment Variable (this is common Google variable, set to access its misc. APIs)
  3. If none of the previous returned a value, the call will fail
 
