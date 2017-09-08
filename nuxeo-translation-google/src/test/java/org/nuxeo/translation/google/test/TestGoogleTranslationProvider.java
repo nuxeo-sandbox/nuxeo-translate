@@ -21,9 +21,7 @@ package org.nuxeo.translation.google.test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import javax.inject.Inject;
@@ -33,14 +31,7 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.common.utils.FileUtils;
-import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.Blobs;
 import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
-import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
-import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.platform.mimetype.service.MimetypeRegistryService;
@@ -80,7 +71,6 @@ public class TestGoogleTranslationProvider {
 
 	@Before
 	public void setup() {
-		System.out.println("**********************in setup()******************");
 		Assume.assumeTrue("Credential are not set", areCredentialsSet());
 
 		TranslationProvider translationProvider = translationService.getProvider("google");
@@ -106,15 +96,14 @@ public class TestGoogleTranslationProvider {
 
 		assertNotNull(googleTranslationProvider);
 
-		String text = "Hello";
+		String text = "hola";
 
 		TranslationResponse response = googleTranslationProvider.translateText(text, "en", "es");
 
 		assertNotNull(response);
+		assertEquals("Hello", response.getTextTranslation());
 		// String language = response.getLanguage();
 		// assertEquals("en", language);
-
-		// We check some know return values
 
 	}
 

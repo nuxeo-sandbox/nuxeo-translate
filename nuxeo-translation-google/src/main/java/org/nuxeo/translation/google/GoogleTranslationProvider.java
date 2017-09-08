@@ -90,8 +90,8 @@ public class GoogleTranslationProvider implements TranslationProvider {
 
 		//Translation response = translationService.translate(text);
 		//response = translationService.translate(text, TranslateOption.sourceLanguage(sourceLanguage), TranslateOption.targetLanguage(targetLanguage));
-		Translation response = translationService.translate(text, Translate.TranslateOption.sourceLanguage("es"));
-		System.out.println(response.getTranslatedText());
+		//Translation response = translationService.translate(text, Translate.TranslateOption.sourceLanguage("es"));
+		//System.out.println(response.getTranslatedText());
 		GoogleTranslationResponse gtr = new GoogleTranslationResponse(response);
 
 		return gtr;
