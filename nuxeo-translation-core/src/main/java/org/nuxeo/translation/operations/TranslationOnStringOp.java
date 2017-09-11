@@ -73,7 +73,7 @@ public class TranslationOnStringOp {
 
 		try {
 			response = TranslationService.translateText(provider, text, sourceLanguage, targetLanguage);
-			ctx.put(outputVariable, response);
+			ctx.put(outputVariable, response.getTextTranslation());
 		} catch (IOException | GeneralSecurityException e) {
 			if (StringUtils.isEmpty(provider)) {
 				log.warn("Call to the Translation API failed for the default provider " + provider, e);

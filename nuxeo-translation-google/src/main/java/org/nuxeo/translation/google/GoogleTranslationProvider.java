@@ -67,7 +67,6 @@ public class GoogleTranslationProvider implements TranslationProvider {
 		if (translationServiceClient == null) {
 			synchronized (this) {
 				if (translationServiceClient == null) {
-
 					try (InputStream is = new FileInputStream(new File(getCredentialFilePath()))) {
 						
 						final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
@@ -111,7 +110,7 @@ public class GoogleTranslationProvider implements TranslationProvider {
 		if (credentialsFilePath == null) {
 			credentialsFilePath = params.get(CREDENTIAL_PATH_PARAM);
 			if (StringUtils.isBlank(credentialsFilePath)) {
-				credentialsFilePath = System.getProperty(CREDENTIAL_PATH_CONFIGURATION_PARAM);
+				credentialsFilePath = System.getProperty(CREDENTIAL_ENV_VARIABLE);
 				if (StringUtils.isBlank(credentialsFilePath)) {
 					try {
 						credentialsFilePath = System.getenv(CREDENTIAL_ENV_VARIABLE);
