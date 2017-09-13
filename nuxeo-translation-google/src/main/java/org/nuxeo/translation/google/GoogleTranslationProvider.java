@@ -48,7 +48,7 @@ public class GoogleTranslationProvider implements TranslationProvider {
 
 	public static final String CREDENTIAL_PATH_PARAM = "credentialFilePath";
 
-	public static final String CREDENTIAL_PATH_CONFIGURATION_PARAM = "org.nuxeo.natural.language.google.credentials";
+	public static final String CREDENTIAL_PATH_CONFIGURATION_PARAM = "org.nuxeo.translation.google.credentials";
 
 	public static final String CREDENTIAL_ENV_VARIABLE = "GOOGLE_APPLICATION_CREDENTIALS";
 
