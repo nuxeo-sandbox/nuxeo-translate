@@ -1,17 +1,31 @@
 # nuxeo-translate
 
-**WORK IN PROGRESS - WORK IN PROGRESS - WORK IN PROGRESS**
+**WORK IN PROGRESS**
 
 ## About
 This plugin provides a service allowing text to be translated to/from English.
 
 To cite Google Translate API documentation:
 
+Cloud Translation API provides a simple programmatic interface for translating an arbitrary string into any supported language using state-of-the-art Neural Machine Translation. Translation API is highly responsive, so websites and applications can integrate with Translation API for fast, dynamic translation of source text from the source language to a target language (e.g., French to English). Language detection is also available in cases where the source language is unknown. The underlying technology pushes the boundary of Machine Translation and is updated constantly to seamlessly improve translations and introduce new languages and language pairs.
+
 ## Usage
  
 ### Limitations
 
+The service accepts a string to be directly processed. Documents and Blobs will be supported *very* soon.
+
 ### Example of JS Automation Using an Operation
+var str = 'Hola';
+
+var result = Services.TranslationOnStringOp(
+    str, {
+      'outputVariable': "response"
+    });
+  
+var response = ctx.response;
+
+Console.log('WE TRANSLATED TEXT FOR YOU!!!!!!!!!!!!!!!' + response);
 
 ## Google Translate API: Authenticating to the Service
 

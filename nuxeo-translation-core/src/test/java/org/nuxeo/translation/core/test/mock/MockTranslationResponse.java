@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2015-2017 Nuxeo (http://nuxeo.com/) and others.
+ * (C) Copyright 2017 Nuxeo SA (http://nuxeo.com/) and others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,24 @@
  * limitations under the License.
  *
  * Contributors:
- *     Michael Vachette (via nuxeo-vision)
+ *     Jackie Aldama
  *     Thibaud Arguillere (via natural-language)
- *	   Jackie Aldama
  */
-package org.nuxeo.translation.service.api;
+package org.nuxeo.translation.core.test.mock;
 
-public enum TranslationFeature {
+import org.nuxeo.translation.service.api.TranslationResponse;
 
-	ENTITIES("OPTIONS");
+/**
+ *
+ * @since 9.2
+ */
+public class MockTranslationResponse implements TranslationResponse {
 
-	private final String text;
-
-	TranslationFeature(final String text) {
-		this.text = text;
-	}
+    public static final String LANGUAGE = "en";
 
 	@Override
-	public String toString() {
-		return text;
+	public String getTextTranslation() {
+		return null;
 	}
+
 }

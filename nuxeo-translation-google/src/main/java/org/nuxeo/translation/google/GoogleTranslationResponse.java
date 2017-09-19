@@ -19,11 +19,7 @@
  */
 package org.nuxeo.translation.google;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.nuxeo.translation.service.api.TranslationResponse;
-import org.nuxeo.translation.service.impl.TranslationText;
 
 import com.google.cloud.translate.Translation;
 

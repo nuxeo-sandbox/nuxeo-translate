@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.translation.core.test.mock.provider">
+
+  <require>org.nuxeo.translation.service</require>
+
+  <extension target="org.nuxeo.translation.service" point="configuration">
+    <configuration>
+      <defaultProviderName>mock</defaultProviderName>
+    </configuration>
+  </extension>
+
+  <extension point="provider" target="org.nuxeo.translation.service">
+    <provider class="org.nuxeo.translation.core.test.mock.MockTranslationProvider" name="mock"/>
+  </extension>
+
+</component>
