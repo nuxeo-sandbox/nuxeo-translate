@@ -21,7 +21,9 @@ package org.nuxeo.translation.google.test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import javax.inject.Inject;
@@ -31,7 +33,13 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.nuxeo.common.utils.FileUtils;
+import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
+import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
+import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.platform.mimetype.service.MimetypeRegistryService;
@@ -51,6 +59,10 @@ import com.google.cloud.translate.Translate;
 @Features({ PlatformFeature.class, SimpleFeatureCustom.class })
 @Deploy({ "nuxeo-translation-core", "nuxeo-translation-google" })
 public class TestGoogleTranslationProvider {
+	
+	protected String PDF_EN = "files/DocumentManagement-ES-2017.pdf";
+	
+	protected DocumentModel pdfEN;
 
 	@Inject
 	CoreSession coreSession;
@@ -68,6 +80,30 @@ public class TestGoogleTranslationProvider {
 	Translation translationService;
 
 	protected GoogleTranslationProvider googleTranslationProvider = null;
+	
+	protected DocumentModel createFileDocument(DocumentModel parent, String filePath) {
+
+		File file = FileUtils.getResourceFileFromContext(filePath);
+		FileBlob fileBlob = new FileBlob(file);
+		fileBlob.setFilename(file.getName());
+
+		String mimeType = mimetypeRegistryService.getMimetypeFromBlob(fileBlob);
+		// At runtime, importing a Word doc sets the correct mimetype. In
+		// Eclipse, running the test in debug mode, it is set to
+		// "Application/zip" (on Mac), and so, the conversion to text fails.
+		if (file.getName().indexOf(".docx") > 0 && mimeType.indexOf("/zip") > 0) {
+			mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		}
+		fileBlob.setMimeType(mimeType);
+
+		DocumentModel doc = coreSession.createDocumentModel(parent.getPathAsString(), file.getName(), "File");
+		doc.setPropertyValue("dc:title", file.getName());
+		doc.setPropertyValue("file:content", fileBlob);
+		doc = coreSession.createDocument(doc);
+		doc = coreSession.saveDocument(doc);
+
+		return doc;
+	}
 
 	@Before
 	public void setup() {
@@ -79,6 +115,13 @@ public class TestGoogleTranslationProvider {
 		assertTrue(translationProvider instanceof GoogleTranslationProvider);
 
 		googleTranslationProvider = (GoogleTranslationProvider) translationProvider;
+		
+		DocumentModel parent = coreSession.createDocumentModel("/", "test-translation", "Folder");
+		parent.setPropertyValue("dc:title", "test-translation");
+		parent = coreSession.createDocument(parent);
+		parent = coreSession.saveDocument(parent);
+
+		pdfEN = createFileDocument(parent, PDF_EN);
 
 		coreSession.save();
 
@@ -104,7 +147,36 @@ public class TestGoogleTranslationProvider {
 		assertEquals("Hello", response.getTextTranslation());
 		// String language = response.getLanguage();
 		// assertEquals("en", language);
+	}
+	
+	@Test
+	public void testTranslateDoc() throws IOException {
+		
+		String text;
+		String translation;
+		TranslationResponse response;
+		
+		pdfEN.refresh();
+		text = extractRawText(pdfEN);
+		response = googleTranslationProvider.translateText(text, null, null);
+		assertNotNull(response);
+		translation = response.getTextTranslation();
+	}
+	
+	protected String extractRawText(DocumentModel doc) throws UnsupportedEncodingException, IOException {
 
+		BlobHolder blobHolder = doc.getAdapter(BlobHolder.class);
+
+		return extractRawText(blobHolder.getBlob());
+	}
+	
+	protected String extractRawText(Blob blob) throws UnsupportedEncodingException, IOException {
+
+		SimpleBlobHolder blobHolder = new SimpleBlobHolder(blob);
+		BlobHolder resultBlob = conversionService.convert("any2text", blobHolder, null);
+		String text = new String(resultBlob.getBlob().getByteArray(), "UTF-8");
+
+		return text;
 	}
 
 	@Test

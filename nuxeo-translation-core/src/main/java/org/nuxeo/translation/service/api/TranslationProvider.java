@@ -41,7 +41,7 @@ public interface TranslationProvider {
 	 * @return a {@link TranslationResponse} object
 	 */
 	TranslationResponse translateText(String text, String sourceLanguage, String targetLanguage) throws IOException, GeneralSecurityException, IllegalStateException;
-
+	
 	/**
 	 * @return the provider native client object
 	 */

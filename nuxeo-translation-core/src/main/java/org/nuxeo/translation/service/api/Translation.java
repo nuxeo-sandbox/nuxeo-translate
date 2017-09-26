@@ -48,7 +48,38 @@ public interface Translation {
 	 * @since 9.2
 	 */
 	TranslationResponse translateText(String providerName, String text, String sourceLanguage, String targetLangugage) throws IOException, GeneralSecurityException, IllegalStateException;
+	
+	/**
+	 *
+	 * @param provider
+	 *            Provider to use. Can be {@code null} (using default provider
+	 *            then)
+	 * @param blob
+	 *            Raw text will be extracted from this blob
+	 * @param features
+	 *            Features to request from the service
+	 * @return a {@link TranslationResponse} object
+	 * @since 9.2
+	 */
+	TranslationResponse processBlob(String provider, Blob blob)
+			throws IOException, GeneralSecurityException;
+	
+	/**
+	 *
+	 * @param provider
+	 *            Provider to use. Can be {@code null} (using default provider
+	 *            then)
+	 * @param doc
+	 *            The document containing the blob to analyze
+	 * @param xpath
+	 *            The xpath where to find the blob (null or empty: uses
+	 *            file:content)
+	 * @return a {@link TranslationResponse} object
+	 * @since 9.2
+	 */
+	TranslationResponse processDocument(String providerName, DocumentModel doc, String xpath) throws IOException, GeneralSecurityException;
 
+	
 	/**
 	 * @return The name of default provider or {@code null} is not found
 	 * @since 9.2

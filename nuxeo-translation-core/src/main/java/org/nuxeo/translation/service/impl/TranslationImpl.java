@@ -142,6 +142,40 @@ public class TranslationImpl extends DefaultComponent implements Translation {
 
 		return text;
 	}
+	
+	@Override
+	public TranslationResponse processBlob(String providerName, Blob blob)
+			throws IOException, GeneralSecurityException {
+		if (blob == null) {
+			throw new IllegalArgumentException("Input Blob cannot be null");
+		}
+
+		TranslationProvider provider = getProviderOrDefault(providerName);
+		if (provider == null) {
+			throw new NuxeoException("Unknown provider: "
+					+ (StringUtils.isBlank(providerName) ? getDefaultProviderName() : providerName));
+		}
+
+		String text = extractRawText(blob);
+		return provider.translateText(text, null, null);
+	}
+	
+	@Override
+	public TranslationResponse processDocument(String providerName, DocumentModel doc, String xpath) throws IOException, GeneralSecurityException {
+
+		if (doc == null) {
+			throw new IllegalArgumentException("Input DocumentModel cannot be null");
+		}
+
+		Blob blob;
+		if (StringUtils.isBlank(xpath)) {
+			xpath = "file:content";
+		}
+		blob = (Blob) doc.getPropertyValue(xpath);
+		return processBlob(providerName, blob);
+
+	}
+
 
 	@Override
 	public String getDefaultProviderName() {
