@@ -28,6 +28,7 @@ bin/
 *~bak
 *-bak
 *.bak
+.recommenders
 
 #specific to nuxeo-translate
 translation-test.conf
