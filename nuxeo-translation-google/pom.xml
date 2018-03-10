@@ -3,7 +3,7 @@
   <parent>
     <groupId>nuxeo.translation</groupId>
     <artifactId>nuxeo-translation-parent</artifactId>
-    <version>9.2-SNAPSHOT</version>
+    <version>9.10-SNAPSHOT</version>
   </parent>
   <artifactId>nuxeo-translation-google</artifactId>
   <name>Nuxeo Translation Google</name>
