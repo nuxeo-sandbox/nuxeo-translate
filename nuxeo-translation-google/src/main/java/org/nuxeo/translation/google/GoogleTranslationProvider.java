@@ -28,11 +28,10 @@ import java.util.Map;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.Translate.TranslateOption;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.translation.service.api.TranslationProvider;
 import org.nuxeo.translation.service.api.TranslationResponse;

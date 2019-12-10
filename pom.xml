@@ -4,18 +4,18 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>9.10</version>
+    <version>10.10</version>
   </parent>
 
   <groupId>nuxeo.translation</groupId>
   <artifactId>nuxeo-translation-parent</artifactId>
-  <version>9.10-SNAPSHOT</version>
+  <version>10.10-SNAPSHOT</version>
   <name>Nuxeo translation parent</name>
   <description/>
   <packaging>pom</packaging>
 
   <properties>
-    <google.translation.version>0.21.1-beta</google.translation.version>
+    <google.translation.version>1.4.0</google.translation.version>
   </properties>
 
   <modules>
@@ -73,17 +73,6 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-    <repository>
-      <id>nuxeo-studio</id>
-      <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -99,5 +88,5 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-  
+
 </project>

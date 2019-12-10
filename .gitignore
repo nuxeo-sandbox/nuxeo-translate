@@ -29,6 +29,8 @@ bin/
 *-bak
 *.bak
 .recommenders
+.factorypath
+.vscode
 
 #specific to nuxeo-translate
 translation-test.conf
